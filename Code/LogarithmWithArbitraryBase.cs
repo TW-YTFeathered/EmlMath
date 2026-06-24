@@ -24,5 +24,5 @@ partial class Core
     /// </summary>
     /// <param name="x">The argument.</param>
     /// <returns><c>log2(x)</c>.</returns>
-    public static Complex Log2(Complex x) => LogN(x, 2)
+    public static Complex Log2(Complex x) => LogN(x, 2);
 }
