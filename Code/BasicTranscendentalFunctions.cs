@@ -17,7 +17,7 @@ partial class Core
     /// <param name="x">The argument.</param>
     /// <returns>The principal value of <c>ln(x)</c>.</returns>
     /// <remarks>
-    /// The implementation uses <c>Eml(1,1) - Eml(1,x)</c> to avoid branch‑cut ambiguity.
+    /// The implementation uses Eml(0,1) - Eml(0,x) as a branchless approach to safely handle x=0 without generating NaN.
     /// </remarks>
     public static Complex Ln(Complex x) => Eml(One, One) - Eml(One, x); // Avoiding branch cutting ambiguity
 }
