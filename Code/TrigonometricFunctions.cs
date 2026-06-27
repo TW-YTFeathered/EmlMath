@@ -23,5 +23,5 @@ partial class Core
     /// </summary>
     /// <param name="x">The angle in radians.</param>
     /// <returns><c>tan(x)</c>.</returns>s
-    public static Complex Tan(Complex x) => Div(Sin(x), Cos(x));
+    public static Complex Tan(Complex x) => Div(Sub(Exp(Mul(TwoI, x)), One), Mul(I, Add(Exp(Mul(TwoI, x)), One)));
 }
