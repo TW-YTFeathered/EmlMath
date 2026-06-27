@@ -32,7 +32,7 @@ partial class Core
     /// </summary>
     /// <param name="x">The radicand.</param>
     /// <returns>The principal cube root of <paramref name="x"/>.</returns>
-    public static Complex Cbrt(Complex x) => Root(x, Add(Two, One));
+    public static Complex Cbrt(Complex x) => Root(x, Three);
 
     /// <summary>
     /// Computes the Euclidean norm (hypotenuse) of two complex numbers.
