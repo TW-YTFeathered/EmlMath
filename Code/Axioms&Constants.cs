@@ -24,6 +24,11 @@ partial class Core
     /// </summary>
     public static Complex PI { get; }
 
+    /// <summary>
+    /// Gets the mathematical constant e, derived as <c>Exp(1)</c>.
+    /// </summary>
+    public static Complex E { get; }
+
     // Internal constants (used only for definitions)
     private static Complex NegativeOne { get; }
     private static Complex Two { get; }

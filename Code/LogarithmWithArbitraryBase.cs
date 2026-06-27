@@ -17,12 +17,12 @@ partial class Core
     /// </summary>
     /// <param name="x">The argument.</param>
     /// <returns><c>log10(x)</c>.</returns>
-    public static Complex Log10(Complex x) => LogN(x, 10);
+    public static Complex Log10(Complex x) => LogN(x, Ten);
 
     /// <summary>
     /// Computes the binary (base‑2) logarithm of a complex number.
     /// </summary>
     /// <param name="x">The argument.</param>
     /// <returns><c>log2(x)</c>.</returns>
-    public static Complex Log2(Complex x) => LogN(x, 2);
+    public static Complex Log2(Complex x) => LogN(x, Two);
 }
