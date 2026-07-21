@@ -72,4 +72,4 @@ module Core =
     let E = Exp One
     let Arg x = (Ln x).Imaginary
     let Atan2 y x = Mul I y |> Add x |> Arg
-    let Atan2C y x = Complex(Atan2 x y, 0.0)
+    let Atan2C y x = Complex(Atan2 y x, 0.0)
