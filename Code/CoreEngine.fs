@@ -26,15 +26,13 @@ module Core =
         |> (fun r -> Sub r One)
     let Div x y = Inv y |> Mul x
     let Pow x y = Ln x |> Mul y |> Exp
-    let Root x y =
-        Pow x (Inv y)
+    let Root x y = Pow x (Inv y)
     let private Two = Add One One
     let Sqrt x = Root x Two
     let private Three = Add Two One
     let Cbrt x = Root x Three
     let Hypot x y = Mul y y |> Add (Mul x x) |> Sqrt
-    let AbsReal x =
-        Sqrt (Mul x x)
+    let AbsReal x = Sqrt (Mul x x)
     let private NegativeOne = Neg One
     let I = Sqrt NegativeOne
     let private TwoI = Add I I
