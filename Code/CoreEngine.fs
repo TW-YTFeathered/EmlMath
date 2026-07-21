@@ -13,10 +13,10 @@ module Core =
     let Ln x = Eml One One - Eml One x
     let Zero = Ln One
     let Sub x y = Eml (Ln x) (Exp y)
-    let Neg y = Sub Zero y
-    let Inv y = Ln y |> Neg |> Exp
+    let Neg x = Sub Zero x
+    let Inv x = Ln x |> Neg |> Exp
     let Add x y = Neg y |> Sub x
-    let AssistMul x = Add x One |> Eml Zero |> Sub One
+    let private AssistMul x = Add x One |> Eml Zero |> Sub One
     let Mul x y =
         AssistMul x
         |> Add (AssistMul y)
