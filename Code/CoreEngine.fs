@@ -71,5 +71,5 @@ module Core =
     let PI = Mul NegativeI (Ln NegativeOne)
     let E = Exp One
     let Arg x = (Ln x).Imaginary
-    let Atan2 x y = Mul I x |> Add y |> Arg
-    let Atan2C x y = Complex(Atan2 x y, 0.0)
+    let Atan2 y x = Mul I y |> Add x |> Arg
+    let Atan2C y x = Complex(Atan2 x y, 0.0)
