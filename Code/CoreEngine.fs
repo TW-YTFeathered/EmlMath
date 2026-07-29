@@ -7,6 +7,8 @@ open System.Numerics
 /// All operations follow the principal branch of the complex logarithm.
 /// </summary>
 module Core =
+    let Re (x: Complex) = x.Real
+    let Im (x: Complex) = x.Imaginary
     let One = Complex.One
     /// eml(x, y) = exp(x) - ln(y)
     let Eml x y = Complex.Exp(x) - Complex.Log(y)
@@ -112,7 +114,7 @@ module Core =
     /// e = e^1
     let E = Exp One
     /// arg(x) = im(ln(x))
-    let Arg x = (Ln x).Imaginary
+    let Arg x = Im (Ln x)
     /// atan2(y, x) = arg(x + i * y)
     let Atan2 y x = Mul I y |> Add x |> Arg
     /// atan2c(y, x) = atan2(y, x) + 0i
