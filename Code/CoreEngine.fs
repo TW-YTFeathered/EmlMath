@@ -3,9 +3,16 @@ namespace EmlMath
 open System.Numerics
 
 /// <summary>
-/// Provides complex arithmetic operations defined entirely in terms of the <see cref="Eml"/> function.
+/// Provides arithmetic operations defined entirely in terms of the <see cref="Eml"/> function.
 /// All operations follow the principal branch of the complex logarithm.
 /// </summary>
+/// <remarks>
+/// For real-valued inputs, all functions are mathematically exact and behave as expected.
+/// For complex-valued inputs, correctness is NOT guaranteed: because every operation is built
+/// from Exp/Ln under the principal branch, results may silently disagree with the "textbook"
+/// analytic continuation whenever an intermediate phase crosses the branch cut (±π). This is
+/// deterministic, not random — but not something callers should rely on without testing.
+/// </remarks>
 module Core =
     /// re(x) - helper to extract real part for formula composition
     let Re (x: Complex) = x.Real
