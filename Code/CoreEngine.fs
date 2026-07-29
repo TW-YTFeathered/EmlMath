@@ -36,10 +36,10 @@ module Core =
     let Mul x y =
         AssistMul x
         |> Add (AssistMul y)
-        |> (fun sum -> Eml sum One)
-        |> (fun r -> Sub r x)
-        |> (fun r -> Sub r y)
-        |> (fun r -> Sub r One)
+        |> (fun f1 -> Eml f1 One)
+        |> (fun f2 -> Sub f2 x)
+        |> (fun f3 -> Sub f3 y)
+        |> (fun f4 -> Sub f4 One)
     /// div(x, y) = x / y
     let Div x y = Inv y |> Mul x
     /// pow(x, y) = x^y
@@ -65,22 +65,22 @@ module Core =
     let Sin x =
         Mul I x
         |> Exp
-        |> fun e1 ->
+        |> fun f ->
             Mul NegativeI x
             |> Exp
-            |> Sub e1
-        |> fun diff -> Div diff TwoI
+            |> Sub f
+        |> fun g -> Div g TwoI
     /// cos(x) = [e^(i * x) + e^(-i * x)] / 2
     let Cos x =
         Mul I x
         |> Exp
-        |> fun ep ->
+        |> fun f ->
             Mul NegativeI x
             |> Exp
-            |> Add ep
-        |> fun sum -> Div sum Two
+            |> Add f
+        |> fun g -> Div g Two
     /// tan(x) = {e^[(2 * i) * x] - 1} / (i * {e^[(2 * i) * x] + 1})
-    let Tan x = Mul TwoI x |> Exp |> fun v -> Div (Sub v One) (Mul I (Add v One))
+    let Tan x = Mul TwoI x |> Exp |> fun f -> Div (Sub f One) (Mul I (Add f One))
     let private Ten = Mul Three Three |> Add One
     /// logn(x, bv) = ln(x) / ln(bv)
     let LogN x bv = Ln bv |> Div (Ln x)
@@ -89,24 +89,24 @@ module Core =
     /// log2(x) = logn(x, 2)
     let Log2 x = LogN x Two
     /// sinh(x) = (e^x - e^-x) / 2
-    let Sinh x = Exp x |> fun ex -> Exp (Neg x) |> fun enx -> Div (Sub ex enx) Two
+    let Sinh x = Exp x |> fun f -> Exp (Neg x) |> fun g -> Div (Sub f g) Two
     /// cosh(x) = (e^x + e^-x) / 2
-    let Cosh x = Exp x |> fun ex -> Exp (Neg x) |> fun enx -> Div (Add ex enx) Two
+    let Cosh x = Exp x |> fun f -> Exp (Neg x) |> fun g -> Div (Add f g) Two
     /// tanh(x) = sinh(x) / cosh(x)
-    let Tanh x = Sinh x |> fun s -> Cosh x |> fun c -> Div s c
+    let Tanh x = Sinh x |> fun f -> Cosh x |> fun g -> Div f g
     /// asinh(x) = ln(x + sqrt(x^2 + 1))
     let Asinh x = Mul x x |> Add One |> Sqrt |> Add x |> Ln
     /// acosh(x) = ln(x + sqrt(x^2 - 1))
     let Acosh x = Mul x x |> Sub One |> Sqrt |> Add x |> Ln
     /// atanh(x) = ln((1 + x) / (1 - x)) / 2
-    let Atanh x = Div (Ln (Div (Add One x) (Sub One x))) Two
+    let Atanh x = Sub One x |> Div (Add One x) |> Ln |> fun f -> Div f Two
     let private IOverTwo = Div I Two
     /// asin(x) = -i * ln(i * x + sqrt(1 - x^2))
     let Asin x = Mul x x |> Sub One |> Sqrt |> Add (Mul I x) |> Ln |> Mul NegativeI
     /// acos(x) = -i * ln(x + sqrt(1 - x^2))
     let Acos x = Mul x x |> Sub One |> Sqrt |> Add x |> Ln |> Mul NegativeI
     /// atan(x) = i/2 * ln((i + x) / (i - x))
-    let Atan x = Mul IOverTwo (Ln (Div (Add I x) (Sub I x)))
+    let Atan x = Sub I x |> Div (Add I x) |> Ln |> Mul IOverTwo
     /// π = -i * ln(-1)
     let PI = Mul NegativeI (Ln NegativeOne)
     /// e = e^1
