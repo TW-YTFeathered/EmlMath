@@ -7,7 +7,9 @@ open System.Numerics
 /// All operations follow the principal branch of the complex logarithm.
 /// </summary>
 module Core =
+    /// re(x) - helper to extract real part for formula composition
     let Re (x: Complex) = x.Real
+    /// im(x) - helper to extract imaginary part for formula composition
     let Im (x: Complex) = x.Imaginary
     let One = Complex.One
     /// eml(x, y) = exp(x) - ln(y)
