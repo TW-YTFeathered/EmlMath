@@ -13,7 +13,10 @@ module ExprBuilder =
     /// exp(x) = eml(x, 1)
     let Exp x = Eml x One
     /// ln(x) = eml(1, eml(eml(1, x), 1))
-    let Ln x = Eml One (Eml (Eml One x) One)
+    let Ln x = 
+        Eml One x
+        |> fun f -> Eml f One
+        |> Eml One
     /// 0 = ln(1)
     let Zero = Ln One
     /// sub(x, y) = x - y
@@ -24,15 +27,8 @@ module ExprBuilder =
     let Inv x = Ln x |> Neg |> Exp
     /// add(x, y) = x + y
     let Add x y = Neg y |> Sub x
-    let private AssistMul x = Add x One |> Eml Zero |> Sub One
     /// mul(x, y) = x * y
-    let Mul x y =
-        AssistMul x
-        |> Add (AssistMul y)
-        |> (fun f1 -> Eml f1 One)
-        |> (fun f2 -> Sub f2 x)
-        |> (fun f3 -> Sub f3 y)
-        |> (fun f4 -> Sub f4 One)
+    let Mul x y = Ln y |> Add (Ln x) |> Exp
     /// div(x, y) = x / y
     let Div x y = Inv y |> Mul x
     /// pow(x, y) = x^y
